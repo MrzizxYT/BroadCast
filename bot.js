@@ -15,7 +15,19 @@ client.user.setGame(`Italy`,"http://twitch.tv/MoSalah")
 client.user.setStatus("dnd")
 });
 
-
+client.on("message", message => {
+ 
+            if (message.content.startsWith(prefix + "bc4")) {
+                         if (!message.member.hasPermission("ADMINISTRATOR"))  return;
+  let args = message.content.split(" ").slice(1);
+  var argresult = args.join(' ');
+  message.guild.members.filter(m => m.presence.status !== 'offline').forEach(m => {//حقوق دايموند كودز
+ m.send(`${argresult}\n ${m}`);
+})
+ message.channel.send(`\`${message.guild.members.filter(m => m.presence.status !== 'online').size}\` : عدد الاعضاء المستلمين`);
+ message.delete();
+};    
+});
 
 client.on("message", async message => {
     var command = message.content.split(" ")[0];
@@ -154,6 +166,7 @@ client.on("message", async message => {
             معلومات عن السيرفر : ${prefix}server
             برودكاست للأونلاين فقط : ${prefix}bco
             يعرض لك عدد المتبندين من سيرفرك : ${prefix}banned
+             -bc4 all
             **`);
             message.channel.sendEmbed(help); // رابط السيرفر يعود الى سيرفر CODES .
     }
